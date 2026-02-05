@@ -20,51 +20,13 @@ Rancher Turtles meets [SLSA Level 3](https://slsa.dev/spec/v1.0/levels#build-l3)
 
 ## Prerequisites
 
-Before installing Rancher Turtles in your Rancher environment, you must disable Rancher's `embedded-cluster-api` functionality. This also includes cleaning up Rancher-specific webhooks that otherwise would conflict with CAPI ones.
+:::note
 
-To simplify setting up Rancher for installing Rancher Turtles, the official Rancher Turtles Helm chart includes a `pre-install` hook that removes the following:
+Starting with Rancher v2.14, the built-in `embedded-cluster-api` functionality (also known as the `rancher-provisioning-capi` chart) has been removed. [Rancher Turtles](https://turtles.docs.rancher.com/) is now the only supported method for Cluster API integration with Rancher.
 
-- Disables the `embedded-cluster-api` feature in Rancher.
-- Deletes the `mutating-webhook-configuration` and `validating-webhook-configuration` webhooks, as they are no longer needed.
+If you are upgrading from a previous version of Rancher (v2.13 or earlier), you no longer need to manually disable the `embedded-cluster-api` feature flag or clean up related webhooks before installing Rancher Turtles.
 
-These webhooks can be removed through the Rancher UI as well:
-
-1. In the upper left corner, click **☰** > **Cluster Management**.
-1. Select your local cluster.
-1. In the left-hand navigation menu, select **More Resources** > **Admission**.
-1. From the dropdown, select the Resource pages for `MutatingWebhookConfiguration` and `ValidatingWebhookConfiguration`.
-1. On the respective Resource pages, click the **⋮** that are attached to the `mutating-webhook-configuration` and `validating-webhook-configuration` webhooks and select the **Delete** option.
-
-The webhooks can also be accessed by entering the names of the webhooks into the **Resource Search** field.
-
-The following `kubectl` commands can manually remove the necessary webhooks:
-
-```console
-kubectl delete mutatingwebhookconfiguration.admissionregistration.k8s.io mutating-webhook-configuration
-```
-
-```console
-kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io validating-webhook-configuration
-```
-
-Use the following example to disable the `embedded-cluster-api` feature from the console:
-
-1. Create a `feature.yaml` file, with `embedded-cluster-api` set to false:
-
-```yaml title="feature.yaml"
-apiVersion: management.cattle.io/v3
-kind: Feature
-metadata:
-  name: embedded-cluster-api
-spec:
-  value: false
-```
-
-2. Use `kubectl` to apply the `feature.yaml` file to the cluster:
-
-```bash
-kubectl apply -f feature.yaml
-```
+:::
 
 ## Installing the Rancher Turtles Operator
 
@@ -240,21 +202,3 @@ Remember that, if you use a different name for the installation or a different n
 
 :::
 
-After Rancher Turtles is uninstalled, Rancher's `embedded-cluster-api` feature must be re-enabled:
-
-1. Create a `feature.yaml` file, with `embedded-cluster-api` set to true:
-
-```yaml title="feature.yaml"
-apiVersion: management.cattle.io/v3
-kind: Feature
-metadata:
-  name: embedded-cluster-api
-spec:
-  value: true
-```
-
-2. Use `kubectl` to apply the `feature.yaml` file to the cluster:
-
-```bash
-kubectl apply -f feature.yaml
-```
