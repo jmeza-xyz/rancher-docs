@@ -87,7 +87,7 @@ systemctl start rke2-server.service
 
 1. 安装 Kubernetes 命令行工具 [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl)。
 2. 复制 `/etc/rancher/rke2/rke2.yaml` 文件并保存到本地主机的 `~/.kube/config` 目录上。
-3. 在 kubeconfig 文件中，`server` 的参数为 localhost。在端口 6443 上将服务器配置为 controlplane 负载均衡器的 DNS（RKE2 Kubernetes API Server 使用端口 6443，而 Rancher Server 将通过 NGINX Ingress 在端口 80 和 443 上提供服务。）以下是一个示例 `rke2.yaml`：
+3. 在 kubeconfig 文件中，`server` 的参数为 localhost。在端口 6443 上将服务器配置为 controlplane 负载均衡器的 DNS（RKE2 Kubernetes API Server 使用端口 6443，而 Rancher Server 将通过 Traefik Ingress 在端口 80 和 443 上提供服务。）以下是一个示例 `rke2.yaml`：
 
 ```yml
 apiVersion: v1
@@ -127,39 +127,18 @@ kubectl --kubeconfig ~/.kube/config/rke2.yaml get pods --all-namespaces
 
 ```
 /var/lib/rancher/rke2/bin/kubectl --kubeconfig /etc/rancher/rke2/rke2.yaml get pods -A
-NAMESPACE     NAME                                                    READY   STATUS      RESTARTS   AGE
-kube-system   cloud-controller-manager-rke2-server-1                  1/1     Running     0          2m28s
-kube-system   cloud-controller-manager-rke2-server-2                  1/1     Running     0          61s
-kube-system   cloud-controller-manager-rke2-server-3                  1/1     Running     0          49s
-kube-system   etcd-rke2-server-1                                      1/1     Running     0          2m13s
-kube-system   etcd-rke2-server-2                                      1/1     Running     0          87s
-kube-system   etcd-rke2-server-3                                      1/1     Running     0          56s
-kube-system   helm-install-rke2-canal-hs6sx                           0/1     Completed   0          2m17s
-kube-system   helm-install-rke2-coredns-xmzm8                         0/1     Completed   0          2m17s
-kube-system   helm-install-rke2-ingress-nginx-flwnl                   0/1     Completed   0          2m17s
-kube-system   helm-install-rke2-metrics-server-7sggn                  0/1     Completed   0          2m17s
-kube-system   kube-apiserver-rke2-server-1                            1/1     Running     0          116s
-kube-system   kube-apiserver-rke2-server-2                            1/1     Running     0          66s
-kube-system   kube-apiserver-rke2-server-3                            1/1     Running     0          48s
-kube-system   kube-controller-manager-rke2-server-1                   1/1     Running     0          2m30s
-kube-system   kube-controller-manager-rke2-server-2                   1/1     Running     0          57s
-kube-system   kube-controller-manager-rke2-server-3                   1/1     Running     0          42s
-kube-system   kube-proxy-rke2-server-1                                1/1     Running     0          2m25s
-kube-system   kube-proxy-rke2-server-2                                1/1     Running     0          59s
-kube-system   kube-proxy-rke2-server-3                                1/1     Running     0          85s
-kube-system   kube-scheduler-rke2-server-1                            1/1     Running     0          2m30s
-kube-system   kube-scheduler-rke2-server-2                            1/1     Running     0          57s
-kube-system   kube-scheduler-rke2-server-3                            1/1     Running     0          42s
-kube-system   rke2-canal-b9lvm                                        2/2     Running     0          91s
-kube-system   rke2-canal-khwp2                                        2/2     Running     0          2m5s
-kube-system   rke2-canal-swfmq                                        2/2     Running     0          105s
-kube-system   rke2-coredns-rke2-coredns-547d5499cb-6tvwb              1/1     Running     0          92s
-kube-system   rke2-coredns-rke2-coredns-547d5499cb-rdttj              1/1     Running     0          2m8s
-kube-system   rke2-coredns-rke2-coredns-autoscaler-65c9bb465d-85sq5   1/1     Running     0          2m8s
-kube-system   rke2-ingress-nginx-controller-69qxc                     1/1     Running     0          52s
-kube-system   rke2-ingress-nginx-controller-7hprp                     1/1     Running     0          52s
-kube-system   rke2-ingress-nginx-controller-x658h                     1/1     Running     0          52s
-kube-system   rke2-metrics-server-6564db4569-vdfkn                    1/1     Running     0          66s
+NAMESPACE     NAME                                      READY   STATUS      RESTARTS   AGE
+kube-system   cloud-controller-manager-my-node-1        1/1     Running     0          5d
+kube-system   etcd-my-node-1                            1/1     Running     0          5d
+kube-system   helm-install-traefik-crd-z8vsz            0/1     Completed   0          5d
+kube-system   helm-install-traefik-h6n2q                0/1     Completed   0          5d
+kube-system   kube-apiserver-my-node-1                  1/1     Running     0          5d
+kube-system   kube-proxy-my-node-1                      1/1     Running     0          5d
+kube-system   kube-scheduler-my-node-1                  1/1     Running     0          5d
+kube-system   rke2-canal-2j4ls                          2/2     Running     0          5d
+kube-system   rke2-coredns-rke2-coredns-5c6b4d5-8f2mz   1/1     Running     0          5d
+kube-system   rke2-metrics-server-587b78-v9q2s          1/1     Running     0          5d
+kube-system   traefik-64f54698-m9p2w                    1/1     Running     0          2d
 ```
 
 **结果**：你可通过使用 `kubectl` 访问集群，并且 RKE2 集群能成功运行。现在，你可以在集群上安装 Rancher Management Server。

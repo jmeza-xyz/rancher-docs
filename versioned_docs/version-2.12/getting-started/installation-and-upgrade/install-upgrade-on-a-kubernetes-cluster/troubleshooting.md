@@ -13,7 +13,7 @@ This section describes how to troubleshoot an installation of Rancher on a Kuber
 Most of the troubleshooting will be done on objects in these 3 namespaces.
 
 - `cattle-system` - `rancher` deployment and pods.
-- `ingress-nginx` - Ingress controller pods and services.
+- `traefik` - Ingress controller pods and services.
 - `cert-manager` - `cert-manager` pods.
 
 ### "default backend - 404"
@@ -115,7 +115,7 @@ Events:
 
 Your certs get applied directly to the Ingress object in the `cattle-system` namespace.
 
-Check the status of the Ingress object and see if its ready.
+Check the status of the Ingress object and see if it's ready.
 
 ```
 kubectl -n cattle-system describe ingress
@@ -123,12 +123,10 @@ kubectl -n cattle-system describe ingress
 
 If its ready and the SSL is still not working you may have a malformed cert or secret.
 
-Check the nginx-ingress-controller logs. Because the nginx-ingress-controller has multiple containers in its pod you will need to specify the name of the container.
+Check the `traefik` logs.
 
 ```
-kubectl -n ingress-nginx logs -f nginx-ingress-controller-rfjrq nginx-ingress-controller
-...
-W0705 23:04:58.240571       7 backend_ssl.go:49] error obtaining PEM from secret cattle-system/tls-rancher-ingress: error retrieving secret cattle-system/tls-rancher-ingress: secret cattle-system/tls-rancher-ingress was not found
+kubectl -n traefik logs
 ```
 
 ### No matches for kind "Issuer"
@@ -148,7 +146,7 @@ The most common cause of this issue is port 8472/UDP is not open between the nod
 
 Once the network issue is resolved, the `canal` pods should timeout and restart to establish their connections.
 
-### nginx-ingress-controller Pods show RESTARTS
+### Traefik Pods show RESTARTS
 
 The most common cause of this issue is the `canal` pods have failed to establish the overlay network. See [canal Pods show READY `2/3`](#canal-pods-show-ready-23) for troubleshooting.
 

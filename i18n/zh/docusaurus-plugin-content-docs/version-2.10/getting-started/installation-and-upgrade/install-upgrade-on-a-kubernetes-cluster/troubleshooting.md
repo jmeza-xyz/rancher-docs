@@ -9,7 +9,7 @@ title: Rancher Server Kubernetes 集群的问题排查
 故障排除主要针对以下 3 个命名空间中的对象：
 
 - `cattle-system`：`rancher` deployment 和 Pod。
-- `ingress-nginx`：Ingress Controller Pod 和 services。
+- `traaefik`：Ingress Controller Pod 和 services。
 - `cert-manager`：`cert-manager` Pod。
 
 ## "default backend - 404"
@@ -117,14 +117,12 @@ Events:
 kubectl -n cattle-system describe ingress
 ```
 
-如果 Ingress 对象已就绪，但是 SSL 仍然无法正常工作，你的证书或密文的格式可能不正确。
+If its ready and the SSL is still not working you may have a malformed cert or secret.
 
-这种情况下，请检查 nginx-ingress-controller 的日志。nginx-ingress-controller 的 Pod 中有多个容器，因此你需要指定容器的名称：
+Check the `traefik` logs.
 
 ```
-kubectl -n ingress-nginx logs -f nginx-ingress-controller-rfjrq nginx-ingress-controller
-...
-W0705 23:04:58.240571       7 backend_ssl.go:49] error obtaining PEM from secret cattle-system/tls-rancher-ingress: error retrieving secret cattle-system/tls-rancher-ingress: secret cattle-system/tls-rancher-ingress was not found
+kubectl -n traefik logs
 ```
 
 ## 没有匹配的 "Issuer"
@@ -144,7 +142,7 @@ Error: validation failed: unable to recognize "": no matches for kind "Issuer" i
 
 解决网络问题后，`canal` Pod 会超时并重启以建立连接。
 
-## nginx-ingress-controller Pod 显示 RESTARTS
+## Traefik Pod 显示 RESTARTS
 
 此问题的最常见原因是 `canal` pod 未能建立覆盖网络。参见 [canal Pod 显示 READY `2/3`](#canal-pod-显示-ready-23) 进行排查。
 
