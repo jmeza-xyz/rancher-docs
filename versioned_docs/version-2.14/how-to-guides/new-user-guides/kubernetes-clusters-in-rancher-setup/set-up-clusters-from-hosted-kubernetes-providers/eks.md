@@ -307,6 +307,41 @@ The following are the required permissions for installing the Amazon EBS CSI Dri
 }
 ```
 
+### IPv6 Dual-Stack Networking Permissions
+
+The following are the additional permissions required for provisioning an **IPv6** EKS cluster from Rancher.
+
+> **Note:** These permissions are only necessary when Rancher is **creating** a new IPv6 cluster. During new cluster creation, Rancher needs these permissions to generate the dual-stack VPC, create the IAM OIDC provider, and assign an inline policy (`RancherManaged_AllowIPv6ForCNI`) to the Node Instance Role. 
+> 
+> If you are registering (importing) an existing EKS cluster that already has IPv6 configured, these additional permissions are **not required**.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AssignIpv6Addresses",
+        "ec2:UnassignIpv6Addresses",
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:UnassignPrivateIpAddresses",
+        "ec2:AssociateVpcCidrBlock",
+        "ec2:DisassociateVpcCidrBlock",
+        "iam:PutRolePolicy",
+        "iam:CreateOpenIDConnectProvider",
+        "iam:ListOpenIDConnectProviders",
+        "eks:AssociateIdentityProviderConfig",
+        "eks:DescribeIdentityProviderConfig",
+        "eks:ListIdentityProviderConfigs",
+        "sts:AssumeRoleWithWebIdentity"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
 ## Syncing
 
 The EKS provisioner can synchronize the state of an EKS cluster between Rancher and the provider. For an in-depth technical explanation of how this works, see [Syncing.](../../../../reference-guides/cluster-configuration/rancher-server-configuration/sync-clusters.md)
