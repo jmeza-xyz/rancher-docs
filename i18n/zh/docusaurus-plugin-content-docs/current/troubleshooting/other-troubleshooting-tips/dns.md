@@ -6,7 +6,7 @@ title: DNS
 
 请确保你配置了正确的 kubeconfig（例如，为 Rancher HA 配置了 `export KUBECONFIG=$PWD/kube_config_cluster.yml`）或通过 UI 使用了嵌入式 kubectl。
 
-在运行 DNS 检查之前，请检查集群的默认 DNS 提供商，并确保[覆盖网络正常运行](networking.md#检查覆盖网络是否正常运行)，因为这也可能导致 DNS 解析（部分）失败。
+Before running the DNS checks, make sure that [the overlay network is functioning correctly](networking.md#check-if-overlay-network-is-functioning-correctly) for your DNS provider as this can also be the reason why DNS resolution (partly) fails.
 
 ## 检查 DNS pod 是否正在运行
 
