@@ -92,8 +92,8 @@ Example output:
 kubectl -n traefik get pods -o wide
 NAME                                    READY     STATUS    RESTARTS   AGE       IP               NODE
 default-http-backend-797c5bc547-kwwlq   1/1       Running   0          17m       x.x.x.x          worker-1
-traefik-4qd64          1/1       Running   0          14m       x.x.x.x          worker-1
-traefik-8wxhm          1/1       Running   0          13m       x.x.x.x          worker-0
+traefik-4qd64                           1/1       Running   0          14m       x.x.x.x          worker-1
+traefik-8wxhm                           1/1       Running   0          13m       x.x.x.x          worker-0
 ```
 
 If a pod is unable to run (Status is not **Running**, Ready status is not showing `1/1` or you see a high count of Restarts), check the pod details, logs and namespace events.
