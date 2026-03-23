@@ -62,9 +62,9 @@ The Helm chart in the git repository must include its dependencies in the `chart
 
 ## Fleet resource configuration
 
-Fleet supports configuring CPU and memory resource requests and limits for both management cluster controllers and downstream cluster agents. When running Fleet through Rancher, pass configuration using the rancher-config ConfigMap instead of Helm directly.
+Fleet allows you to configuring CPU and memory resource requests and limits for both management cluster controllers and downstream cluster agents. When running Fleet through Rancher, apply these changes using the `rancher-config` ConfigMap rather than via Helm directly.
 
-For detailed configuration options, refer to [Resource Limits in Fleet](https://fleet.rancher.io/how-tos-for-operators/resource-limits)
+For detailed configuration options, refer to [Resource Limits in Fleet](https://fleet.rancher.io/how-tos-for-operators/resource-limits).
 
 ## Troubleshooting
 
