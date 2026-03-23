@@ -60,6 +60,12 @@ In order for Helm charts with dependencies to deploy successfully, you must run 
 
 The Helm chart in the git repository must include its dependencies in the charts subdirectory. You must either manually run `helm dependencies update $chart` or run `helm dependencies build $chart` locally, then commit the complete charts directory to your git repository. Note that you will update your commands with the applicable parameters
 
+## Fleet resource configuration
+
+Fleet allows you to configuring CPU and memory resource requests and limits for both management cluster controllers and downstream cluster agents. When running Fleet through Rancher, apply these changes using the `rancher-config` ConfigMap rather than via Helm directly.
+
+For detailed configuration options, refer to [Resource Limits in Fleet](https://fleet.rancher.io/how-tos-for-operators/resource-limits).
+
 ## Troubleshooting
 
 - **Known Issue**: clientSecretName and helmSecretName secrets for Fleet gitrepos are not included in the backup nor restore created by the [backup-restore-operator](../../how-to-guides/new-user-guides/backup-restore-and-disaster-recovery/back-up-rancher.md#1-install-the-rancher-backup-operator). We will update the community once a permanent solution is in place.
