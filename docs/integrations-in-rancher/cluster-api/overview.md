@@ -20,11 +20,11 @@ Rancher Turtles meets [SLSA Level 3](https://slsa.dev/spec/v1.0/levels#build-l3)
 
 ## Prerequisites
 
-:::note
+:::important
 
-Starting with Rancher v2.14, the built-in `embedded-cluster-api` functionality (also known as the `rancher-provisioning-capi` chart) has been removed. [Rancher Turtles](https://turtles.docs.rancher.com/) is now the only supported method for Cluster API integration with Rancher.
+Starting with Rancher v2.14.0, the built-in `embedded-cluster-api` functionality (also known as the `rancher-provisioning-capi` chart) has been removed. [Rancher Turtles](https://turtles.docs.rancher.com/) is now the only supported method for Cluster API integration with Rancher.
 
-If you are upgrading from a previous version of Rancher (v2.13 or earlier), you no longer need to manually disable the `embedded-cluster-api` feature flag or clean up related webhooks before installing Rancher Turtles.
+If you are upgrading from a previous version of Rancher (v2.13.x or earlier), you no longer need to manually disable the `embedded-cluster-api` feature flag or clean up related webhooks before installing Rancher Turtles.
 
 :::
 
