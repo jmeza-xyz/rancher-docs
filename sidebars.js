@@ -651,6 +651,17 @@ const sidebars = {
           items: [
             {
               type: "category",
+              label: "Rancher Deployment Guides",
+              link: {
+                type: "doc",
+                id: "how-to-guides/advanced-user-guides/rancher-deployment-guides/rancher-deployment-guides",
+              },
+              items: [
+                    "how-to-guides/advanced-user-guides/rancher-deployment-guides/configure-with-existing-gateway",
+              ],
+            },
+            {
+              type: "category",
               label: "Project Administration",
               link: {
                 type: "doc",
