@@ -651,6 +651,17 @@ const sidebars = {
           items: [
             {
               type: "category",
+              label: "Rancher Deployment Guides",
+              link: {
+                type: "doc",
+                id: "how-to-guides/advanced-user-guides/rancher-deployment-guides/rancher-deployment-guides",
+              },
+              items: [
+                    "how-to-guides/advanced-user-guides/rancher-deployment-guides/configure-with-existing-gateway",
+              ],
+            },
+            {
+              type: "category",
               label: "Project Administration",
               link: {
                 type: "doc",
@@ -784,7 +795,8 @@ const sidebars = {
             "how-to-guides/advanced-user-guides/enable-cluster-agent-scheduling-customization",
             "how-to-guides/advanced-user-guides/configure-layer-7-nginx-load-balancer",
             "how-to-guides/advanced-user-guides/configure-oidc-provider",
-            "how-to-guides/advanced-user-guides/ui-server-side-pagination"
+            "how-to-guides/advanced-user-guides/ui-server-side-pagination",
+            "how-to-guides/advanced-user-guides/capi-infrastructure-providers"
           ],
         },
       ],
