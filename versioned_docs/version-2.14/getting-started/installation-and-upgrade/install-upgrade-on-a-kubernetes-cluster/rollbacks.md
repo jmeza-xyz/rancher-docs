@@ -34,8 +34,6 @@ In Rancher v2.13.0, Rancher Turtles became the default manager for CAPI resource
 
 In Rancher v2.14.0, the cluster-api module is upgraded from v1.10.6 to v1.12.2. The cluster-api v1.12.2, in turn, upgrades the apiVersions of its Custom Resource Definitions (CRDs) from `cluster.x-k8s.io/v1beta1` to `cluster.x-k8s.io/v1beta2`. Rancher backup files include Cluster API CRDs. When restoring backup data from Rancher v2.13.x to a local cluster after upgrading to v2.14.0, the Rancher Backup application first restores the v1beta1 CRDs. This fails because the v1beta2 version cannot be removed from the CRDs while v1beta2 custom resources are present in the cluster.
 
-In Rancher v2.14.0, the cluster-api module is upgraded from v1.10.6 to v1.12.2. The cluster-api v1.12.2, in turn, upgrades the apiVersions of its Custom Resource Definitions (CRDs) from `cluster.x-k8s.io/v1beta1` to `cluster.x-k8s.io/v1beta2`. Rancher backup files include Cluster API CRDs. When restoring backup data from Rancher v2.13.x to a local cluster after upgrading to v2.14.0, the Rancher Backup application first restores the v1beta1 CRDs. This fails because the v1beta2 version cannot be removed from the CRDs while v1beta2 custom resources are present in the cluster.
-
 ### Step 1: Clean Up the Upstream (Local) Cluster
 
 To avoid rollback failure, follow these [instructions](https://github.com/rancher/rancher-cleanup/blob/main/README.md) to run the scripts **before** you attempt a restore operation or rollback:
