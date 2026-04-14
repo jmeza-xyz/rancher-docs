@@ -17,7 +17,7 @@ The policies shipped by default in Rancher aim to provide a trade-off between se
 
 ## Assign a Pod Security Admissions (PSA) Configuration Template
 
-You can assign a PSA template at the same time that you create a downstream cluster. You can also add a template by configuring an existing cluster.
+You can assign a PSA template at the same time that you create a downstream cluster. You can also add a template by configuring an existing downstream cluster.
 
 ### Assign a Template During Cluster Creation
 <Tabs>
