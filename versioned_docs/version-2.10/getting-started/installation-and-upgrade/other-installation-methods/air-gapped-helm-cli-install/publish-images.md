@@ -42,7 +42,7 @@ If you will use ARM64 hosts, the registry must support manifests. As of April 20
 
 1. Go to our [releases page,](https://github.com/rancher/rancher/releases) find the Rancher v2.x.x release that you want to install, and click **Assets**. Note: Don't use releases marked `rc` or `Pre-release`, as they are not stable for production environments.
 
-2. From the release's **Assets** section, download the following files, which are required to install Rancher in an air gap environment:
+2. From the release's **Assets** section, download the following files, which are required to install Rancher in an air-gap environment:
 
 | Release File   | Description  |
 | ---------------- | -------------- |
@@ -83,16 +83,39 @@ In a Kubernetes Install, if you elect to use the Rancher default self-signed TLS
 
 ### 3. Save the images to your workstation
 
-1. Make `rancher-save-images.sh` an executable:
-   ```
+(Optional) Verify the image list before pulling:
+
+```bash
+wc -l rancher-images.txt
+head rancher-images.txt
+```
+
+1. Make `rancher-save-images.sh` executable:
+   ```bash
    chmod +x rancher-save-images.sh
    ```
 
 1. Run `rancher-save-images.sh` with the `rancher-images.txt` image list to create a tarball of all the required images:
-   ```plain
+   ```bash
    ./rancher-save-images.sh --image-list ./rancher-images.txt
    ```
-   **Result:** Docker begins pulling the images used for an air gap install. Be patient. This process takes a few minutes. When the process completes, your current directory will output a tarball named `rancher-images.tar.gz`. Check that the output is in the directory.
+
+(Optional) Specify a custom output file:
+
+```bash
+./rancher-save-images.sh \
+  --image-list ./rancher-images.txt \
+  --images rancher-images-custom.tar.gz
+```
+
+**Result:** Docker begins pulling the images required for an air-gap installation. The process may take several minutes.
+
+1. Verify that the tarball was created:
+   ```bash
+   ls -lh rancher-images.tar.gz
+   ```
+
+If some images fail to pull, review the output and retry after resolving any issues.
 
 ### 4. Populate the private registry
 
@@ -163,7 +186,7 @@ Your registry must support manifests. As of April 2020, Amazon Elastic Container
    ./rancher-save-images.ps1
    ```
 
-   **Result:** Docker begins pulling the images used for an air gap install. Be patient. This process takes a few minutes. When the process completes, your current directory will output a tarball named `rancher-windows-images.tar.gz`. Check that the output is in the directory.
+   **Result:** Docker begins pulling the images used for an air-gap install. Be patient. This process takes a few minutes. When the process completes, your current directory will output a tarball named `rancher-windows-images.tar.gz`. Check that the output is in the directory.
 
 <a name="windows-3"></a>
 
@@ -273,7 +296,7 @@ The workstation must have Docker 18.02+ in order to support manifests, which are
    ./rancher-save-images.sh --image-list ./rancher-images.txt
    ```
 
-**Result:** Docker begins pulling the images used for an air gap install. Be patient. This process takes a few minutes. When the process completes, your current directory will output a tarball named `rancher-images.tar.gz`. Check that the output is in the directory.
+**Result:** Docker begins pulling the images used for an air-gap install. Be patient. This process takes a few minutes. When the process completes, your current directory will output a tarball named `rancher-images.tar.gz`. Check that the output is in the directory.
 
 <a name="linux-4"></a>
 
