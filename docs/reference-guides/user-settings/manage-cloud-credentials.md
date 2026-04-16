@@ -6,11 +6,11 @@ title: Managing Cloud Credentials
   <link rel="canonical" href="https://ranchermanager.docs.rancher.com/reference-guides/user-settings/manage-cloud-credentials"/>
 </head>
 
-You can create cloud credentials in the **User Settings**.
+The creation or association of cloud credentials are part of the cluster creation process, the information below provides guidance on managing credentials in Rancher.
 
 Cloud credentials are bound to their creator's user profile. They **cannot** be shared between non-admin users. However, admins can view and manage the cloud credentials of other users.
 
-## Creating a Cloud Credential from User Settings
+## Creating a Cloud Credential
 
 1. Click **☰ > Cluster Management**.
 1. Click **Cloud Credentials**.

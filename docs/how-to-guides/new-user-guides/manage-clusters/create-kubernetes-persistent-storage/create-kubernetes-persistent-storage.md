@@ -64,6 +64,10 @@ In clusters that store data on GlusterFS volumes, you may experience an issue wh
 
 In [Rancher Launched Kubernetes clusters](../../launch-kubernetes-with-rancher/launch-kubernetes-with-rancher.md) that store data on iSCSI volumes, you may experience an issue where kubelets fail to automatically connect with iSCSI volumes. For details on resolving this issue, refer to [this page.](manage-persistent-storage/install-iscsi-volumes.md)
 
+### hostPath Volumes
+
+Both K3s and RKE2 support mounting hostPath volumes using the [Rancher Local Path Provisioner](https://github.com/rancher/local-path-provisioner). For configuration information, depending on your distribution refer to [K3s - Volumes and Storage](https://docs.k3s.io/add-ons/storage#setting-up-the-local-storage-provider) or [RKE2 - Advanced Options and Configuration](https://docs.rke2.io/advanced#extra-control-plane-component-volume-mounts).
+
 ### Migrating VMware vSphere Cloud Provider from In-tree to Out-of-tree
 
 Kubernetes is moving away from maintaining cloud providers in-tree. vSphere has an out-of-tree cloud provider that can be used by installing the vSphere cloud provider and cloud storage plugins.
