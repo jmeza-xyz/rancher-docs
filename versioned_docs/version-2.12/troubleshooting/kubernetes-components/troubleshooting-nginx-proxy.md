@@ -6,6 +6,14 @@ title: Troubleshooting nginx-proxy
   <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/kubernetes-components/troubleshooting-nginx-proxy"/>
 </head>
 
+:::caution
+
+The `nginx-proxy` container is an RKE1-specific component. If you are using RKE2 or K3s, this container is not deployed, as load balancing to the API servers is handled internally by a client-side load balancer within the agent process itself.
+
+Additionally, please note that RKE1 has reached its [End of Life (EOL)](https://support.scc.suse.com/s/kb/RKE-EOL-what-when-why?language=en_US). Therefore, the information on this page is considered deprecated.
+
+:::
+
 The `nginx-proxy` container is deployed on every node that does not have the `controlplane` role. It provides access to all the nodes with the `controlplane` role by dynamically generating the NGINX configuration based on available nodes with the `controlplane` role.
 
 ## Check if the Container is Running
