@@ -6,7 +6,7 @@ title: Troubleshooting nginx-proxy
   <link rel="canonical" href="https://ranchermanager.docs.rancher.com/troubleshooting/kubernetes-components/troubleshooting-nginx-proxy"/>
 </head>
 
-:::note
+:::caution
 
 The `nginx-proxy` container is an RKE1-specific component. If you are using RKE2 or K3s, this container is not deployed, as load balancing to the API servers is handled internally by a client-side load balancer within the agent process itself.
 
