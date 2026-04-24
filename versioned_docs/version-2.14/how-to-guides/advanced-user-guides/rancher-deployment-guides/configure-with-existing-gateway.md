@@ -6,13 +6,11 @@ title: Using an External Gateway with Rancher
   <link rel="canonical" href="https://ranchermanager.docs.rancher.com/how-to-guides/advanced-user-guides/rancher-deployment-guides/configure-with-existing-gateway/"/>
 </head>
 
-## Using an External Gateway with Rancher
-
 When using the Gateway API network exposure type, Rancher can create and manage its own Gateway resource. However, if you have an existing Gateway that you manage independently (for example, a shared Gateway used by multiple applications), you will need to create your own HTTPRoute resources to route traffic to Rancher.
 
 This section covers how to create the required HTTPRoute resources manually when using an externally managed Gateway.
 
-### Prerequisites
+## Prerequisites
 
 - An existing Gateway resource configured and operational in your cluster
 - Knowledge of your Gateway's:
@@ -20,7 +18,7 @@ This section covers how to create the required HTTPRoute resources manually when
   - Listener names (sectionName) for HTTP and/or HTTPS traffic
 - Rancher installed with `networkExposure.type` set to something other than `gateway` (e.g., `none` or `ingress`)
 
-### Cross-Namespace Gateway Requirements
+## Cross-Namespace Gateway Requirements
 
 If your Gateway is in a different namespace than Rancher (e.g., Gateway in `gateway-system`, Rancher in `cattle-system`), the Gateway must be configured to accept HTTPRoutes from the Rancher namespace. By default, Gateway API only allows routes from the same namespace as the Gateway.
 
@@ -90,7 +88,7 @@ kubectl label namespace cattle-system shared-gateway-access=true
 
 > **Note:** If the Gateway and Rancher are in the same namespace, no additional configuration is needed—the default `allowedRoutes` setting (`from: Same`) will permit the HTTPRoute attachment.
 
-### Determining Your Rancher Service Values
+## Determining Your Rancher Service Values
 
 Before creating HTTPRoute resources, identify the following values from your Rancher installation:
 
@@ -104,9 +102,9 @@ Before creating HTTPRoute resources, identify the following values from your Ran
 
 The Rancher service name follows the pattern: `<release-name>-rancher` (or just `<release-name>` if the release name already contains "rancher").
 
-### HTTPRoute Configuration
+## HTTPRoute Configuration
 
-#### Primary HTTPRoute
+### Primary HTTPRoute
 
 Create an HTTPRoute to direct traffic from your Gateway to the Rancher service. The configuration depends on your TLS setup:
 
@@ -160,7 +158,7 @@ spec:
           port: 80
 ```
 
-#### HTTP to HTTPS Redirect Route (Optional)
+### HTTP to HTTPS Redirect Route (Optional)
 
 If TLS terminates at or within Kubernetes (not externally), you may want to redirect HTTP traffic to HTTPS. Create an additional HTTPRoute:
 
@@ -185,7 +183,7 @@ spec:
             statusCode: 301
 ```
 
-### Using extraObjects
+## Using extraObjects
 
 You can include these HTTPRoute resources directly in your Rancher Helm installation using the `extraObjects` value. This keeps all resources managed together:
 
@@ -234,7 +232,7 @@ extraObjects:
                 statusCode: 301
 ```
 
-### Backend Port Selection
+## Backend Port Selection
 
 The port in `backendRefs` depends on your `service.disableHTTP` setting:
 
@@ -243,7 +241,7 @@ The port in `backendRefs` depends on your `service.disableHTTP` setting:
 | `false` (default)     | `80`         |
 | `true`                | `443`        |
 
-### Listener Selection Summary
+## Listener Selection Summary
 
 | TLS Configuration | Primary Route Listener | Redirect Route |
 |-------------------|------------------------|----------------|
@@ -252,7 +250,7 @@ The port in `backendRefs` depends on your `service.disableHTTP` setting:
 | `tls: secret`     | HTTPS listener         | HTTP listener (optional) |
 | `tls: letsEncrypt`| HTTPS listener         | HTTP listener (optional) |
 
-### Troubleshooting
+## Troubleshooting
 
 **HTTPRoute not being accepted:**
 - Verify the Gateway name and namespace are correct
